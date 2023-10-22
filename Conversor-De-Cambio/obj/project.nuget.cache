@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "t2cFsddrpYWlq/cnrOnX1Kja2F4RfgfDUDx3kNO4ckwB5Hn5Ly06EvO1CPY7gRKN8LGp1bNyoeYOeD3nnmvPAw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\55479\\Desktop\\Conversor-De-Cambio\\Conversor-De-Cambio\\Conversor-De-Cambio.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\55479\\.nuget\\packages\\freecurrencyapi\\1.0.0\\freecurrencyapi.1.0.0.nupkg.sha512",
+    "C:\\Users\\55479\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
