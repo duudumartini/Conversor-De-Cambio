@@ -9,8 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="troca.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="freecurrencyapi" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="troca.png" />
   </ItemGroup>
 
 </Project>

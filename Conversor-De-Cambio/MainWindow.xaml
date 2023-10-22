@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Conversor_De_Cambio"
         mc:Ignorable="d"
-        Background="{DynamicResource 2}"
+        Background="{DynamicResource 1}"
         Title="Conversor De Cambio" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <SolidColorBrush x:Key="1" Color="#01757a"/>
@@ -15,65 +15,140 @@
         <SolidColorBrush x:Key="5" Color="#e57734"/>
         <SolidColorBrush x:Key="6" Color="#3e2922"/>
     </Window.Resources>
-    <Grid Background="{DynamicResource 3}" 
-     Margin="100,50,450,50">
+    <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <Grid.Effect>
-            <DropShadowEffect Color="Gray" Direction="320" ShadowDepth="5" BlurRadius="5"/>
-        </Grid.Effect>
 
-        <!-- Conteúdo da primeira linha -->
-        <TextBox x:Name="Txt_Valor" 
-                 Grid.Row="0" Margin="30,11,30,10"
+        <Grid Name="TabelaDeConversão"
+               Background="{DynamicResource 5}" 
+               Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="117*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="117*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!-- Conteúdo da primeira linha -->
+            <TextBox x:Name="Txt_Valor" 
+                 Grid.Row="1" Margin="130,11,130,10"
+                 Grid.ColumnSpan="3"
                  Text="Valor" Background="{DynamicResource 2}" 
                  Foreground="{DynamicResource 4}"
                  FontSize="18" FontFamily="Century"
                  VerticalContentAlignment="Center"
-                 HorizontalContentAlignment="Center" GotFocus="Txt_Valor_GotFocus"/>
+                 HorizontalContentAlignment="Center" GotFocus="Txt_Valor_GotFocus" FontWeight="Bold"/>
 
-        <!-- Conteúdo da segunda linha -->
-        <ComboBox x:Name="Cbx_MoedaBase"
-                  Grid.Row="1"
-                  Margin="30,11,30,10" Background="{DynamicResource 2}"
-                  />
+            <ComboBox x:Name="Cbx_MoedaBase"
+                  Grid.Row="0"
+                  Margin="30,10,10,10"
+                  FontFamily="Segoe UI Variable Small Semibold"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  Foreground="{DynamicResource 1}"/>
 
-        <!-- Conteúdo da terceira linha -->
-        <ComboBox x:Name="Cbx_MoedaAlvo"
-                  Grid.Row="2"
-                  Margin="30,11,30,10" Background="{DynamicResource 2}"/>
+            <ComboBox x:Name="Cbx_MoedaAlvo"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="30,10,10,10"
+                    FontFamily="Segoe UI Variable Small Semibold"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Foreground="{DynamicResource 1}"/>
 
-        <!-- Conteúdo da quarta linha -->
-        <Button x:Name="Btn_Converter" Grid.Row="3"
+
+            <Button x:Name="Btn_Inverter" 
+                Grid.Row="0" Grid.Column="1" 
+                Margin="10,10,10,10"
+                Background="{DynamicResource 1}" Click="Btn_Inverter_Click">
+                <Grid>
+                    <Image Source="/troca.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Button>
+
+            <Button x:Name="Btn_Converter" 
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
                 Background="{DynamicResource 1}"
                 Foreground="{DynamicResource 4}"
                 BorderBrush="{DynamicResource 1}"
                 Content="Converter"
-                Margin="30,11,30,10" FontFamily="Courgette" FontSize="18" Click="Btn_Converter_Click"/>
+                Margin="150,11,150,10" 
+                FontFamily="Courgette" FontSize="18" 
+                Click="Btn_Converter_Click"/>
 
-        <!-- Conteúdo da quinta linha -->
-        <Label x:Name="lbl_Resultado"
-               Grid.Row="4" 
-               Margin="30,0,30,60" 
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Text Semibold" FontSize="14"/>
-        <Label x:Name="lbl_Resultado1"
-               Grid.Row="4" 
-               Margin="30,30,30,30" 
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Text Semibold" FontSize="14"/>
-        <Label x:Name="lbl_Resultado2"
-               Grid.Row="4" 
-               Margin="30,60,30,0" 
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center" FontFamily="Segoe UI Variable Text Semibold" FontSize="14"/>
+            <Border x:Name="Bd_Resultado"
+                CornerRadius="25" 
+                BorderBrush="{DynamicResource 3}" 
+                BorderThickness="1"
+                Grid.Row="3" Grid.ColumnSpan="3"
+                Margin="50,10,50,10"
+                Background="{DynamicResource 3}">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="20" RenderingBias="Quality">
+
+                    </DropShadowEffect>
+                </Border.Effect>
+                <Label x:Name="lbl_Resultado"
+                   Background="Transparent"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center" 
+                   FontFamily="Segoe UI Variable Text Semibold" FontSize="16"/>
+            </Border>
+
+        </Grid>
+
+        <Grid Name="Resumo"
+            Grid.Row="2"
+            Background="{DynamicResource 6}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="1" Grid.RowSpan="2" Background="{DynamicResource 1}"/>
+
+            <Border Name="HistoricoTitulo"
+                    Grid.Column="0" Grid.Row="0" 
+                    CornerRadius="15"
+                    Margin="50,10,50,10"
+                    Background="{DynamicResource 3}">
+                <Label Content="Historico de pesquisas"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Center"
+                   FontFamily="Segoe UI Variable Small Semibold"/>
+            </Border>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Grid.Column="0"
+                          Grid.Row="1">
+                <ListView ItemsSource="{Binding HistoricoDeCambios}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Valor" DisplayMemberBinding="{Binding Valor}" Width="50"/>
+                            <GridViewColumn Header="Moeda Base" DisplayMemberBinding="{Binding MoedaBase}" Width="100"/>
+                            <GridViewColumn Header="Moeda Alvo" DisplayMemberBinding="{Binding MoedaAlvo}" Width="100"/>
+                            <GridViewColumn Header="Resultado" DisplayMemberBinding="{Binding Resultado}" Width="60"/>
+                            <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Date}" Width="80"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

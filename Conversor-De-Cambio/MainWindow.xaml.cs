@@ -1,5 +1,7 @@
 ﻿using Conversor_De_Cambio.Classes;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,19 +11,13 @@ namespace Conversor_De_Cambio
 {
     public partial class MainWindow : Window
     {
+        List<Cambio> historicoDeCambios = new List<Cambio>();
         public MainWindow()
         {
             InitializeComponent();
-            _ = CarregarDadosAssincronamenteAsync();
-
+            Bd_Resultado.Visibility = Visibility.Hidden;
         }
 
-        private async Task CarregarDadosAssincronamenteAsync()
-        {
-            
-            
-            
-        }
 
         private void Btn_Converter_Click(object sender, RoutedEventArgs e)
         {
@@ -66,10 +62,26 @@ namespace Conversor_De_Cambio
         {
             string[] moedaBase = Cbx_MoedaBase.Text.Split('|');
             string[] moedaAlvo = Cbx_MoedaAlvo.Text.Split('|');
-            lbl_Resultado.Content = $"{Txt_Valor.Text} {moedaBase[1]}";
-            lbl_Resultado1.Content = "equivale á";
-            lbl_Resultado2.Content = $"{resultado} {moedaAlvo[1]}";
+            Bd_Resultado.Visibility = Visibility.Visible;
+            lbl_Resultado.Content = $"{Txt_Valor.Text} {moedaBase[1]} equivalem á {resultado} {moedaAlvo[1]}";
+
+            historicoDeCambios.Add(new Cambio
+            {
+                Valor = Txt_Valor.Text,
+                Date = DateTime.Now,
+                MoedaBase = moedaBase[0],
+                MoedaAlvo = moedaAlvo[0],
+                Resultado = resultado
+            });
+
+            AtualizaHistorico();
         }
+
+        private void AtualizaHistorico()
+        {
+
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Cbx_MoedaBase.Items.Add("Moeda Base");
@@ -98,5 +110,13 @@ namespace Conversor_De_Cambio
             }
         }
 
+        private void Btn_Inverter_Click(object sender, RoutedEventArgs e)
+        {
+            int itemMoedaAlvo = Cbx_MoedaAlvo.SelectedIndex;
+            int itemMoedaBase = Cbx_MoedaBase.SelectedIndex;
+
+            Cbx_MoedaAlvo.SelectedIndex = itemMoedaBase;
+            Cbx_MoedaBase.SelectedIndex = itemMoedaAlvo;
+        }
     }
 }
