@@ -39,7 +39,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <!-- Conteúdo da primeira linha -->
+
             <TextBox x:Name="Txt_Valor" 
                  Grid.Row="1" Margin="130,11,130,10"
                  Grid.ColumnSpan="3"
@@ -134,20 +134,24 @@
                    FontFamily="Segoe UI Variable Small Semibold"/>
             </Border>
 
+            <Button x:Name="Btn_LimparHistorico"
+                    Margin="355,10,10,10" Click="Btn_LimparHistorico_Click"/>
+
             <ScrollViewer VerticalScrollBarVisibility="Auto"
                           Grid.Column="0"
                           Grid.Row="1">
-                <ListView ItemsSource="{Binding HistoricoDeCambios}">
+                <ListView x:Name="Historico">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Valor" DisplayMemberBinding="{Binding Valor}" Width="50"/>
-                            <GridViewColumn Header="Moeda Base" DisplayMemberBinding="{Binding MoedaBase}" Width="100"/>
-                            <GridViewColumn Header="Moeda Alvo" DisplayMemberBinding="{Binding MoedaAlvo}" Width="100"/>
-                            <GridViewColumn Header="Resultado" DisplayMemberBinding="{Binding Resultado}" Width="60"/>
-                            <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Date}" Width="80"/>
+                            <GridViewColumn Header="Valor" Width="50" DisplayMemberBinding="{Binding Valor}" />
+                            <GridViewColumn Header="Moeda Base" Width="100" DisplayMemberBinding="{Binding MoedaBase}" />
+                            <GridViewColumn Header="Moeda Alvo" Width="100" DisplayMemberBinding="{Binding MoedaAlvo}" />
+                            <GridViewColumn Header="Resultado" Width="60" DisplayMemberBinding="{Binding Resultado}" />
+                            <GridViewColumn Header="Data" Width="80" DisplayMemberBinding="{Binding Date}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
+
             </ScrollViewer>
         </Grid>
     </Grid>

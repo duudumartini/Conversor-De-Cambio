@@ -11,13 +11,20 @@ namespace Conversor_De_Cambio
 {
     public partial class MainWindow : Window
     {
-        List<Cambio> historicoDeCambios = new List<Cambio>();
         public MainWindow()
         {
             InitializeComponent();
-            Bd_Resultado.Visibility = Visibility.Hidden;
         }
 
+        private void AtualizaHistorico()
+        {
+            List<Cambio> historicoItens = Database.RecuperaHistorico();
+            foreach (var historicoItem in historicoItens)
+            {
+                Historico.Items.Add(historicoItem);
+            }
+
+        }
 
         private void Btn_Converter_Click(object sender, RoutedEventArgs e)
         {
@@ -56,7 +63,6 @@ namespace Conversor_De_Cambio
 
             decimal resultadoMostrar = Math.Round(resultado, 2);
             MostraResultado(resultadoMostrar);
-            
         }
         private void MostraResultado(decimal resultado)
         {
@@ -65,25 +71,21 @@ namespace Conversor_De_Cambio
             Bd_Resultado.Visibility = Visibility.Visible;
             lbl_Resultado.Content = $"{Txt_Valor.Text} {moedaBase[1]} equivalem á {resultado} {moedaAlvo[1]}";
 
-            historicoDeCambios.Add(new Cambio
-            {
-                Valor = Txt_Valor.Text,
-                Date = DateTime.Now,
-                MoedaBase = moedaBase[0],
-                MoedaAlvo = moedaAlvo[0],
-                Resultado = resultado
-            });
-
-            AtualizaHistorico();
-        }
-
-        private void AtualizaHistorico()
-        {
+            Cambio cambio = new Cambio();
+            cambio.Valor = Txt_Valor.Text;
+            cambio.Date = DateTime.Now;
+            cambio.MoedaBase = moedaBase[0];
+            cambio.MoedaAlvo = moedaAlvo[0];
+            cambio.Resultado = resultado;
+            Database.AdicionaTransacao(cambio);
 
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            AtualizaHistorico();
+            Bd_Resultado.Visibility = Visibility.Hidden;
+
             Cbx_MoedaBase.Items.Add("Moeda Base");
             foreach(var moeda in MoedasDisponiveis.moedas)
             {
@@ -117,6 +119,12 @@ namespace Conversor_De_Cambio
 
             Cbx_MoedaAlvo.SelectedIndex = itemMoedaBase;
             Cbx_MoedaBase.SelectedIndex = itemMoedaAlvo;
+        }
+
+        private void Btn_LimparHistorico_Click(object sender, RoutedEventArgs e)
+        {
+            Database.LimpaHistorico();
+            Historico.Items.Clear();
         }
     }
 }
