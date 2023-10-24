@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Conversor_De_Cambio"
         mc:Ignorable="d"
+        xmlns:oxy="clr-namespace:OxyPlot.Wpf;assembly=OxyPlot.Wpf"
         Background="{DynamicResource 1}"
         Title="Conversor De Cambio" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
-        <SolidColorBrush x:Key="1" Color="#01757a"/>
-        <SolidColorBrush x:Key="2" Color="#b6acad"/>
-        <SolidColorBrush x:Key="3" Color="#f6c0a6"/>
-        <SolidColorBrush x:Key="4" Color="#f8ebcf"/>
-        <SolidColorBrush x:Key="5" Color="#e57734"/>
-        <SolidColorBrush x:Key="6" Color="#3e2922"/>
+        <SolidColorBrush x:Key="1" Color="#2e365a"/>
+        <SolidColorBrush x:Key="2" Color="#6c5e82"/>
+        <SolidColorBrush x:Key="3" Color="#ad91a7"/>
+        <SolidColorBrush x:Key="4" Color="#d0797f"/>
+        <SolidColorBrush x:Key="5" Color="#96a4c5"/>
+        <SolidColorBrush x:Key="6" Color="#3f5b8b"/>
     </Window.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
@@ -108,7 +109,7 @@
 
         </Grid>
 
-        <Grid Name="Resumo"
+        <Grid Name="ResumoEGraficos"
             Grid.Row="2"
             Background="{DynamicResource 6}">
             <Grid.ColumnDefinitions>
@@ -153,6 +154,13 @@
                 </ListView>
 
             </ScrollViewer>
+
+            <oxy:PlotView x:Name="Grafico" 
+                          Grid.Column="2"
+                          Grid.Row="2"/>
+
         </Grid>
+
+
     </Grid>
 </Window>

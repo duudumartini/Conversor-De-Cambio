@@ -1,16 +1,20 @@
 ﻿using Conversor_De_Cambio.Classes;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using OxyPlot.Wpf;
 
 namespace Conversor_De_Cambio
 {
     public partial class MainWindow : Window
     {
+        public string simboloMonetario;
+        public string valor;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,7 +32,7 @@ namespace Conversor_De_Cambio
 
         private void Btn_Converter_Click(object sender, RoutedEventArgs e)
         {
-            if (Txt_Valor.Text == "")
+            if (Txt_Valor.Text == "Valor" || Txt_Valor.Text =="")
             {
                 MessageBox.Show("Favor preencher o valor de conversão.");
             }
@@ -78,6 +82,8 @@ namespace Conversor_De_Cambio
             cambio.MoedaAlvo = moedaAlvo[0];
             cambio.Resultado = resultado;
             Database.AdicionaTransacao(cambio);
+            AtualizaHistorico();
+            _ =AtualizaGraficoAsync();
 
         }
 
@@ -103,6 +109,77 @@ namespace Conversor_De_Cambio
             Cbx_MoedaAlvo.SelectedIndex = 0;
         }
 
+        private async Task AtualizaGraficoAsync()
+        {
+            string[] moedaBase = Cbx_MoedaBase.Text.Split('|');
+            string[] moedaAlvo = Cbx_MoedaAlvo.Text.Split('|');
+            string moeda1 = moedaBase[0].Trim();
+            string moeda2 = moedaAlvo[0].Trim();
+            decimal um = await ApiData.Data(moeda1, moeda2, 1);
+            decimal dois = await ApiData.Data(moeda1, moeda2, 2);
+            decimal tres = await ApiData.Data(moeda1, moeda2, 3);
+            decimal quatro = await ApiData.Data(moeda1, moeda2, 4);
+            decimal cinco = await ApiData.Data(moeda1, moeda2, 5);
+            decimal seis = await ApiData.Data(moeda1, moeda2, 6);
+            decimal sete = await ApiData.Data(moeda1, moeda2, 7);
+            decimal oito = await ApiData.Data(moeda1, moeda2, 8);
+            decimal nove = await ApiData.Data(moeda1, moeda2, 9);
+            decimal dez = await ApiData.Data(moeda1, moeda2, 10);
+            decimal onze = await ApiData.Data(moeda1, moeda2, 11);
+            decimal doze = await ApiData.Data(moeda1, moeda2, 12);
+
+            var model = new PlotModel { Title = "Últimos 12 Meses" };
+            // Configurar o eixo X (meses)
+            var dateAxis = new CategoryAxis
+            {
+                Position = AxisPosition.Bottom,
+                Title = "Mês",
+                MajorGridlineStyle = LineStyle.Solid
+            };
+
+            // Configurar o eixo Y (valor da moeda)
+            var yAxis = new LinearAxis
+            {
+                Position = AxisPosition.Left,
+                Title = "Valor",
+                MajorGridlineStyle = LineStyle.Solid,
+                MinorGridlineStyle = LineStyle.Dot
+            };
+
+            model.Axes.Add(dateAxis);
+            model.Axes.Add(yAxis);
+
+            // Simular dados dos últimos 12 meses
+            var valoresMensais = new[]
+            {
+            new DataPoint(0, (double)um),
+            new DataPoint(1, (double)dois),
+            new DataPoint(2, (double)tres),
+            new DataPoint(3, (double)quatro),
+            new DataPoint(4, (double)cinco),
+            new DataPoint(5, (double)seis),
+            new DataPoint(6, (double)sete),
+            new DataPoint(7, (double)oito),
+            new DataPoint(8, (double)nove),
+            new DataPoint(9, (double)dez),
+            new DataPoint(10, (double)onze),
+            new DataPoint(11, (double)doze)
+        };
+
+            var series = new LineSeries
+            {
+                Title = "Valor da Moeda (Exemplo)",
+                ItemsSource = valoresMensais,
+                DataFieldX = "X",
+                DataFieldY = "Y"
+            };
+
+            model.Series.Add(series);
+
+            // Definir o modelo do gráfico no PlotView
+            Grafico.Model = model;
+        }
+
         private void Txt_Valor_GotFocus(object sender, RoutedEventArgs e)
         {
             if(Txt_Valor.Text == "Valor")
@@ -126,5 +203,6 @@ namespace Conversor_De_Cambio
             Database.LimpaHistorico();
             Historico.Items.Clear();
         }
+
     }
 }
