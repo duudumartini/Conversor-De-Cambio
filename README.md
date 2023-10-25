@@ -1,6 +1,6 @@
-#Conversor de Moedas
+## Conversor de Moedas
 
-![Geral Software]([URL_da_Imagem](https://github.com/duudumartini/Conversor-De-Cambio/blob/main/Conversor-De-Cambio/Imagens%20Software/Geral.png?raw=true))
+![Geral](https://github.com/duudumartini/Conversor-De-Cambio/assets/123970080/f3de2620-1469-47dd-86cb-fbe71280acb7)
 
 Esse conversor de moedas é um aplicativo de desktop desenvolvido em WPF que permite aos usuários converter entre 150 moedas diferentes com taxas de câmbio atualizadas em tempo real. Além disso, o aplicativo oferece funcionalidades de histórico de conversões e exibe gráficos para acompanhar o desempenho das moedas nos últimos 12 meses.
 
