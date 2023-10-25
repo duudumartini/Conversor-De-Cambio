@@ -3,32 +3,38 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Conversor_De_Cambio.Classes;
-
-internal class Api
+namespace Conversor_De_Cambio.Classes
 {
-    public static async Task<decimal> ObterTaxaDeCambio(string moedaBase, string moedaAlvo)
+    internal class Api
     {
-        using (var client = new HttpClient())
+        public static async Task<decimal> ObterTaxaDeCambio(string moedaBase, string moedaAlvo)
         {
-            string URL = "https://api.freecurrencyapi.com/v1/latest?";
-            string ApiKey = "fca_live_9dzaIpvp3nVZyDoO8OVK7MWcKudPKGeFL0LSwfKB";
-            string apiUrl = $"{URL}apikey={ApiKey}&currencies={moedaBase}&base_currency={moedaAlvo}";
-            try
+            using (var client = new HttpClient())
             {
-                string resposta = await client.GetStringAsync(apiUrl);
-                var json = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(resposta);
-                decimal valor = json.data[moedaBase];
-                return valor;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Não foi possível obter as taxas de câmbio.");
-                return 0;
+                string apiUrl = $"https://economia.awesomeapi.com.br/json/daily/{moedaBase}-{moedaAlvo}";
+                try
+                {
+                    string resposta = await client.GetStringAsync(apiUrl);
+                    var json = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic[]>(resposta);
+
+                    // Verifique se há pelo menos um item no array
+                    if (json.Length > 0)
+                    {
+                        decimal valor = json[0].high;
+                        return valor;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possível obter as taxas de câmbio.");
+                        return 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Não foi possível obter as taxas de câmbio.");
+                    return 0;
+                }
             }
         }
     }
 }
-        
-    
-

@@ -9,12 +9,10 @@
         Background="{DynamicResource 1}"
         Title="Conversor De Cambio" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
-        <SolidColorBrush x:Key="1" Color="#2e365a"/>
-        <SolidColorBrush x:Key="2" Color="#6c5e82"/>
-        <SolidColorBrush x:Key="3" Color="#ad91a7"/>
-        <SolidColorBrush x:Key="4" Color="#d0797f"/>
-        <SolidColorBrush x:Key="5" Color="#96a4c5"/>
-        <SolidColorBrush x:Key="6" Color="#3f5b8b"/>
+        <SolidColorBrush x:Key="1" Color="#000000"/>
+        <SolidColorBrush x:Key="2" Color="#1C1C1C"/>
+        <SolidColorBrush x:Key="3" Color="#383838"/>
+        <SolidColorBrush x:Key="4" Color="#D1D1D1"/>
     </Window.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
@@ -26,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <Grid Name="TabelaDeConversão"
-               Background="{DynamicResource 5}" 
+               Background="{DynamicResource 3}" 
                Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="117*"/>
@@ -56,7 +54,7 @@
                   FontFamily="Segoe UI Variable Small Semibold"
                   HorizontalContentAlignment="Center"
                   VerticalContentAlignment="Center"
-                  Foreground="{DynamicResource 1}"/>
+                  Foreground="{DynamicResource 2}"/>
 
             <ComboBox x:Name="Cbx_MoedaAlvo"
                     Grid.Row="0"
@@ -65,13 +63,13 @@
                     FontFamily="Segoe UI Variable Small Semibold"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Foreground="{DynamicResource 1}"/>
+                    Foreground="{DynamicResource 2}"/>
 
 
             <Button x:Name="Btn_Inverter" 
                 Grid.Row="0" Grid.Column="1" 
                 Margin="10,10,10,10"
-                Background="{DynamicResource 1}" Click="Btn_Inverter_Click">
+                Background="{DynamicResource 4}" Click="Btn_Inverter_Click">
                 <Grid>
                     <Image Source="/troca.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
@@ -80,9 +78,9 @@
             <Button x:Name="Btn_Converter" 
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
-                Background="{DynamicResource 1}"
+                Background="{DynamicResource 2}"
                 Foreground="{DynamicResource 4}"
-                BorderBrush="{DynamicResource 1}"
+                BorderBrush="{DynamicResource 2}"
                 Content="Converter"
                 Margin="150,11,150,10" 
                 FontFamily="Courgette" FontSize="18" 
@@ -90,11 +88,11 @@
 
             <Border x:Name="Bd_Resultado"
                 CornerRadius="25" 
-                BorderBrush="{DynamicResource 3}" 
+                BorderBrush="{DynamicResource 4}" 
                 BorderThickness="1"
                 Grid.Row="3" Grid.ColumnSpan="3"
                 Margin="50,10,50,10"
-                Background="{DynamicResource 3}">
+                Background="{DynamicResource 4}">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0" BlurRadius="20" RenderingBias="Quality">
 
@@ -102,6 +100,7 @@
                 </Border.Effect>
                 <Label x:Name="lbl_Resultado"
                    Background="Transparent"
+                   Foreground="{DynamicResource 1}"
                    VerticalContentAlignment="Center"
                    HorizontalContentAlignment="Center" 
                    FontFamily="Segoe UI Variable Text Semibold" FontSize="16"/>
@@ -111,7 +110,7 @@
 
         <Grid Name="ResumoEGraficos"
             Grid.Row="2"
-            Background="{DynamicResource 6}">
+            Background="{DynamicResource 3}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="10"/>
@@ -128,9 +127,10 @@
                     Grid.Column="0" Grid.Row="0" 
                     CornerRadius="15"
                     Margin="50,10,50,10"
-                    Background="{DynamicResource 3}">
+                    Background="{DynamicResource 2}">
                 <Label Content="Historico de pesquisas"
                    VerticalContentAlignment="Center"
+                   Foreground="{DynamicResource 4}"
                    HorizontalContentAlignment="Center"
                    FontFamily="Segoe UI Variable Small Semibold"/>
             </Border>

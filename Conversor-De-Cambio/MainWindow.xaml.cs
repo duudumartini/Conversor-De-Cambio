@@ -8,6 +8,7 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using OxyPlot.Wpf;
+using System.Globalization;
 
 namespace Conversor_De_Cambio
 {
@@ -62,11 +63,12 @@ namespace Conversor_De_Cambio
             string siglaMoedaBase = Cbx_MoedaBase.Text.Substring(0, 3);
             string siglaMoedaAlvo = Cbx_MoedaAlvo.Text.Substring(0, 3);
 
-            decimal respostaApi = await Api.ObterTaxaDeCambio(siglaMoedaBase, siglaMoedaAlvo);
+            decimal respostaApi = await Api.ObterTaxaDeCambio(siglaMoedaAlvo, siglaMoedaBase);
             decimal resultado = valorDecimal / respostaApi;
 
             decimal resultadoMostrar = Math.Round(resultado, 2);
             MostraResultado(resultadoMostrar);
+            //Txt_Valor.Text = resu;
         }
         private void MostraResultado(decimal resultado)
         {
